@@ -123,7 +123,7 @@ RUN tar xzf cppzmq-4.2.3.tar.gz && cd cppzmq-4.2.3 \
 
 
 # mongo-c
-RUN tar xzf mongo-c-driver-1.9.5.tar.gz && cd mongo-c-driver-1.9.5 \
+RUN tar xzf mongo-c-driver-1.4.2.tar.gz && cd mongo-c-driver-1.4.2 \
   && ./configure --disable-automatic-init-and-cleanup --prefix=/usr \
   && make -j4 && make install \
   && cd /tmp
@@ -135,9 +135,9 @@ RUN tar xzf mongo-c-driver-1.9.5.tar.gz && cd mongo-c-driver-1.9.5 \
 
 
 # mongo-cxx
-RUN tar xzf mongo-cxx-driver-r3.2.0.tar.gz && cd mongo-cxx-driver-r3.2.0 \
+RUN tar xzf mongo-cxx-driver-r3.0.2.tar.gz && cd mongo-cxx-driver-r3.0.2 \
   && mkdir _build && cd _build \
-  && cmake -DCMAKE_INSTALL_PREFIX=/usr .. && make -j4 && make install \
+  && cmake  -DBSONCXX_POLY_USE_BOOST=1 -DCMAKE_INSTALL_PREFIX=/usr .. && make -j4 && make install \
   && cd /tmp
 #RUN git clone https://github.com/mongodb/mongo-cxx-driver.git -b r3.2.0 --depth 1 \
 #  && cd mongo-cxx-driver/build \
@@ -173,8 +173,8 @@ RUN tar xzf catapult-server-0.1.0.1.tar.gz && cd catapult-server-0.1.0.1 \
     -DBSONCXX_LIB=/usr/lib/libbsoncxx.so \
     -DMONGOCXX_LIB=/usr/lib/libmongocxx.so \
     .. \
-  && make publish
-  # && VERBOSE=1 make
+  && make publish \
+  && VERBOSE=1 make
 
     # -DLIBBSONCXX_DIR=/usr/include \
     # -DLIBMONGOCXX_DIR=/usr/include \
